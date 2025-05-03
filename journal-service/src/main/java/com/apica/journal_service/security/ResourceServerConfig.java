@@ -21,11 +21,13 @@ public class ResourceServerConfig {
     @Value("${jwt.secret}")
     private String jwtSecret;
 
-    @Autowired
-    private CustomJwtAuthenticationConverter customJwtAuthenticationConverter;
+    CustomJwtAuthenticationConverter customJwtAuthenticationConverter;
+    JwtAuthenticationErrorHandler jwtAuthenticationErrorHandler;
 
-    @Autowired
-    private JwtAuthenticationErrorHandler jwtAuthenticationErrorHandler;
+    public ResourceServerConfig(CustomJwtAuthenticationConverter customJwtAuthenticationConverter, JwtAuthenticationErrorHandler jwtAuthenticationErrorHandler) {
+        this.customJwtAuthenticationConverter = customJwtAuthenticationConverter;
+        this.jwtAuthenticationErrorHandler = jwtAuthenticationErrorHandler;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

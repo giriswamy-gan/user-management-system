@@ -20,26 +20,21 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    @Autowired
     UserDetailsServiceImpl uds;
-
-    @Autowired
     JwtUtil jwtUtil;
-
-    @Autowired
     JwtAuthenticationFilter jwtAuthenticationFilter;
-
-    @Autowired
     JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
+    public SecurityConfig(UserDetailsServiceImpl uds, JwtUtil jwtUtil, JwtAuthenticationFilter jwtAuthenticationFilter, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
+        this.uds = uds;
+        this.jwtUtil = jwtUtil;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+    }
 
     private static final String[] PUBLIC_ENDPOINTS = {
             "/auth/login",
-            "/auth/forgot-password",
-            "/auth/reset-password",
             "/auth/register",
-            "/auth/logout",
-            "/swagger-ui/**",
-            "/v3/api-docs/**",
             "/roles"
     };
 

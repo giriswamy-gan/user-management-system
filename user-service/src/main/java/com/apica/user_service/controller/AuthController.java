@@ -32,23 +32,21 @@ import java.util.stream.Collectors;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
     AuthenticationManager authMgr;
-
-    @Autowired
     JwtUtil jwtUtil;
-
-    @Autowired
     UserRepository userRepo;
-
-    @Autowired
     RolesRepository roleRepo;
+    PasswordEncoder pwEncoder;
+    KafkaService kafkaService;
 
-    @Autowired
-    private PasswordEncoder pwEncoder;
-
-    @Autowired
-    private KafkaService kafkaService;
+    public AuthController(AuthenticationManager authMgr, JwtUtil jwtUtil, UserRepository userRepo, RolesRepository roleRepo, PasswordEncoder pwEncoder, KafkaService kafkaService) {
+        this.authMgr = authMgr;
+        this.jwtUtil = jwtUtil;
+        this.userRepo = userRepo;
+        this.roleRepo = roleRepo;
+        this.pwEncoder = pwEncoder;
+        this.kafkaService = kafkaService;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<SuccessResponse<String>> register(@Valid @RequestBody UserRequestDto req) {

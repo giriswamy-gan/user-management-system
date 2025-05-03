@@ -12,11 +12,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class JournalListener {
-    @Autowired
-    private JournalRepository repo;
 
-    @Autowired
-    private ObjectMapper mapper;
+    JournalRepository repo;
+    ObjectMapper mapper;
+
+    public JournalListener(JournalRepository repo, ObjectMapper mapper) {
+        this.repo = repo;
+        this.mapper = mapper;
+    }
 
     @KafkaListener(topics = "${kafka.topic.user-events}", groupId = "journal-group")
     public void onUserEvent(String json) {

@@ -14,11 +14,14 @@ import java.time.Instant;
 
 @Service
 public class KafkaService {
-    @Autowired
-    private KafkaTemplate<String, String> kafka;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    KafkaTemplate<String, String> kafka;
+    ObjectMapper objectMapper;
+
+    public KafkaService(KafkaTemplate<String, String> kafka, ObjectMapper objectMapper) {
+        this.kafka = kafka;
+        this.objectMapper = objectMapper;
+    }
 
     @Value("${kafka.topic.user-events}") private String topic;
 
