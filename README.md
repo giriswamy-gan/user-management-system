@@ -75,7 +75,7 @@ Run the following command to build and start all services:
 docker-compose up -d
 ```
 
-## NOTE:
+## NOTE
 
 Please wait 1 minute after the kafka service starts before trying to hit any APIs. You can see docker logs for user-service and journal-service before starting to hit those APIs.
 
