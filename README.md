@@ -37,6 +37,42 @@ Run the following command to build and start all services:
 docker-compose up -d
 ```
 
+## NOTE:
+
+Please wait 1 minute after the kafka service starts before trying to hit any APIs. You can see docker logs for user-service and journal-service before starting to hit those APIs.
+
+A user with the role "ROLE_ADMIN" and username "admin" and password "password" is created automatically upon starting the services.
+
+To access the services, first login using this curl:
+
+curl --location 'localhost:8081/auth/login' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=7B8890E2CA6955D5C9E41CA0E04D6DC4' \
+--data '{
+    "username": "admin",
+    "password": "password"
+}'
+
+/auth/login and /auth/register are public APIs and can be accessed by anyone.
+
+To register a new user use this curl:
+
+curl --location 'localhost:8081/auth/register' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=7B8890E2CA6955D5C9E41CA0E04D6DC4' \
+--data '{
+	"username": "ganesh",
+    "password": "password",
+    "fullName": "ganesh g",
+    "roleName": ["ROLE_USER"]
+}'
+
+But you have to create the appropriate role first. Refer the postman collection for accessing all the APIs.
+
+On successful login, you can access all the APIs. Copy the token generated in the login API and use it as Bearer token to authorize all the APIs. Some APIs for deleting user, updating user need ROLE_ADMIN to access.
+
+Accessing any of the journal API needs ADMIN access.
+
 ### 3. Access the Services
 
 - **User Service**: [http://localhost:8081](http://localhost:8081)
