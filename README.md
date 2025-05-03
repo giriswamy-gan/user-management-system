@@ -36,7 +36,7 @@ The **User Management System** is a microservices-based application designed to 
 2. KafkaService constructs a UserEvent object with:
 
 - userId
-- action (CREATE, UPDATE, DELETE, LOGIN)
+- action (CREATED, UPDATED, DELETED, LOGIN)
 - timestamp
 - payloadJson (the actual user request serialized)
 
