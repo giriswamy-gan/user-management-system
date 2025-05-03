@@ -27,10 +27,8 @@ The **User Management System** is a microservices-based application designed to 
 
 ### 1. Clone the Repository
 
-### 1. Clone the Repository
-
 ```bash
-git clone <repository-url>
+git clone https://github.com/giriswamy-gan/user-management-system
 cd user-management-system
 ```
 
