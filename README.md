@@ -195,3 +195,62 @@ To view logs for a specific service, use:
 ```bash
 docker logs <container_id>
 ```
+
+## Future Scope
+
+### 1. Authentication and Security Enhancements
+
+- Refresh Token Implementation:
+Currently, only access tokens are used. Introduce refresh tokens to enable secure re-authentication without requiring users to log in repeatedly.
+Store refresh tokens securely (e.g., HTTP-only cookies or encrypted in the DB).
+
+- Token Expiry and Blacklisting:
+Implement token expiry validation and maintain a blacklist of revoked JWTs for logout and session invalidation support.
+
+- Role-based Access Control (RBAC):
+Enhance the authorization layer to support fine-grained permissions (beyond just role names like "ADMIN", "USER").
+
+- OAuth2/OpenID Connect Support:
+Add support for third-party authentication (e.g., Google, GitHub) using Spring Security's OAuth2 modules.
+
+### 2. Kafka Improvements
+
+- Kafka Security:
+Enable SSL encryption and SASL authentication between producers, consumers, and brokers.
+Set KAFKA_AUTO_CREATE_TOPICS_ENABLE=false and explicitly manage topic creation to avoid unexpected behaviors.
+
+- Kafka Schema Registry Integration:
+Use Avro/Protobuf serialization and register schemas with Confluent Schema Registry for strong data contracts between services.
+
+- Kafka Dead Letter Topics:
+Implement dead-letter topics for handling and debugging consumer deserialization or processing failures.
+
+- Exactly-once Delivery (EOS):
+Enable exactly-once semantics for Kafka transactions in case you evolve toward more critical data flow operations.
+
+### 3. Observability and Monitoring
+
+- Centralized Logging:
+Integrate with ELK (Elasticsearch, Logstash, Kibana) or EFK (Fluentd) stack for log aggregation and analysis.
+
+- Distributed Tracing:
+Add support for tracing (OpenTelemetry, Zipkin, or Jaeger) to track requests across microservices for debugging and performance optimization.
+
+- Metrics and Dashboards:
+Add Prometheus and Grafana to monitor JVM metrics, Kafka lag, HTTP traffic, and DB performance.
+
+### 5. Database & Data Layer
+
+- Flyway or Liquibase Integration:
+Add database versioning and migrations to maintain schema changes across environments.
+
+- Read/Write Separation:
+In future scaling scenarios, consider separating read-heavy and write-heavy operations across DB replicas.
+
+### 6. Scalability & Resilience
+
+- Rate Limiting and Throttling:
+Protect endpoints using libraries like Bucket4j or API gateways with built-in rate limiting.
+
+- Horizontal Scaling:
+Configure services to run in scalable environments (Docker Swarm or Kubernetes).
