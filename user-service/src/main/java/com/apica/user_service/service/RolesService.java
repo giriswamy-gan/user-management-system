@@ -3,7 +3,6 @@ package com.apica.user_service.service;
 import com.apica.user_service.dto.GetRoleResponseDto;
 import com.apica.user_service.dto.RoleRequestDto;
 import com.apica.user_service.entity.Roles;
-import com.apica.user_service.entity.Users;
 import com.apica.user_service.repository.RolesRepository;
 import com.apica.user_service.repository.UserRepository;
 import com.apica.user_service.utils.CustomApiException;
@@ -67,15 +66,4 @@ public class RolesService {
         rolesRepo.save(role);
     }
 
-//    @Transactional
-//    public void deleteRole(String roleId) {
-//        Roles role = rolesRepo.findById(roleId).orElseThrow(() -> new CustomApiException("Role not found", HttpStatus.BAD_REQUEST, "ROLE_NOT_FOUND"));
-//        List<Users> usersWithRole = userRepo.findAllByRolesId(roleId);
-//        for (Users user : usersWithRole) {
-//            user.getRoles().remove(role);
-//        }
-//
-//        // now delete the role
-//        rolesRepo.delete(role);
-//    }
 }

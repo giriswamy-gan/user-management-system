@@ -5,7 +5,6 @@ import com.apica.user_service.entity.UserEvent;
 import com.apica.user_service.entity.Users;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -40,6 +39,5 @@ public class KafkaService {
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Failed to serialize payload", e);
         }
-//        kafka.send("user-events", saved.getId(), ev);
     }
 }
