@@ -189,5 +189,5 @@ The following environment variables are used in the `docker-compose.yml` file:
 To view logs for a specific service, use:
 
 ```bash
-docker logs <container_name>
+docker logs <container_id>
 ```
