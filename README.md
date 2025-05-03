@@ -90,6 +90,7 @@ Ensures admin is assigned ROLE_ADMIN.
 
 To access the services, first login using this curl:
 
+```bash
 curl --location 'localhost:8081/auth/login' \
 --header 'Content-Type: application/json' \
 --header 'Cookie: JSESSIONID=7B8890E2CA6955D5C9E41CA0E04D6DC4' \
@@ -97,20 +98,23 @@ curl --location 'localhost:8081/auth/login' \
     "username": "admin",
     "password": "password"
 }'
+```
 
 /auth/login and /auth/register are public APIs and can be accessed by anyone.
 
 To register a new user use this curl:
 
+```bash
 curl --location 'localhost:8081/auth/register' \
 --header 'Content-Type: application/json' \
 --header 'Cookie: JSESSIONID=7B8890E2CA6955D5C9E41CA0E04D6DC4' \
 --data '{
-	"username": "ganesh",
+     "username": "ganesh",
     "password": "password",
     "fullName": "ganesh g",
     "roleName": ["ROLE_USER"]
 }'
+```
 
 But you have to create the appropriate role first. Refer the postman collection for accessing all the APIs.
 
