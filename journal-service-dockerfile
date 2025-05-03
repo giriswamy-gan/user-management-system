@@ -5,11 +5,11 @@ WORKDIR /app
 # Copy entire multi‑module project
 COPY . .
 
-# Build everything (skipping tests)
-RUN mvn clean install -DskipTests
+# Run tests explicitly before packaging
+RUN mvn test -f journal-service/pom.xml
 
 # Package just the journal‑service
-RUN mvn clean package -f journal-service/pom.xml -DskipTests
+RUN mvn clean package -f journal-service/pom.xml
 
 # ─────── Runtime stage ───────
 FROM eclipse-temurin:21-jre-alpine
