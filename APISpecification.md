@@ -315,8 +315,7 @@ This document provides an overview of all the APIs exposed.
   - **Example**:
     ```json
     {
-      "name": "ADMIN",
-      "description": "Administrator role with full access"
+      "name": "ROLE_ADMIN",
     }
     ```
 - **Response**:
@@ -325,9 +324,12 @@ This document provides an overview of all the APIs exposed.
     - **Body**:
       ```json
       {
-        "status": "success",
-        "message": "Role created",
-        "data": "ADMIN"
+        "status": 201,
+        "data": {
+            "message": "Role created",
+            "data": "ROLE_ADMIN",
+            "customCode": ""
+        }
       }
       ```
   - **Error**:
@@ -356,14 +358,21 @@ This document provides an overview of all the APIs exposed.
     - **Body**:
       ```json
       {
-        "status": "success",
-        "message": "All roles retrieved",
-        "data": [
-          {
-            "id": "string",
-            "name": "string",
-          }
-        ]
+        "status": 200,
+        "data": {
+            "message": "All roles retrieved",
+            "data": [
+                {
+                    "roleId": "rol-0268fb5a-5577-4de0-a8aa-4912b79f7c9c",
+                    "roleName": "ROLE_ADMIN"
+                },
+                {
+                    "roleId": "rol-45fa5fb2-2577-440a-96bc-97030b8d7172",
+                    "roleName": "ROLE_USER"
+                }
+            ],
+            "customCode": ""
+        }
       }
       ```
   - **Error**:
@@ -510,12 +519,13 @@ This document provides an overview of all the APIs exposed.
     - **Body**:
       ```json
       {
-        "status": "200",
+        "status": 201,
         "data": {
-          "message": "User registered",
-          "customCode": ""
-         }
+            "message": "User registered",
+            "data": "john_doe",
+            "customCode": ""
         }
+      }
       ```
   - **Error**:
     - **Status Code**: 409 CONFLICT
@@ -561,12 +571,13 @@ This document provides an overview of all the APIs exposed.
     - **Body**:
       ```json
       {
-        "status": "200",
+        "status": 202,
         "data": {
-          "message": "jwt_token_here",
-          "customCode": ""
-         }
+            "message": "Token generated",
+            "data": "jwt_token_here",
+            "customCode": ""
         }
+      }
       ```
   - **Error**:
     - **Status Code**: 401 UNAUTHORIZED
