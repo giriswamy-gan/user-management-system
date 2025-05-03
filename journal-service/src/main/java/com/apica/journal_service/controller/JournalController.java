@@ -24,6 +24,15 @@ public class JournalController {
         this.journalService = journalService;
     }
 
+    /**
+     * Retrieves all journal entries.
+     *
+     * @return A ResponseEntity containing a SuccessResponse with a list of 
+     *         GetJournalEntryDto objects and an HTTP status code. If successful, 
+     *         the response will include the journal entries and a status of OK. 
+     *         In case of an error, it will return an INTERNAL_SERVER_ERROR status 
+     *         with the corresponding error message.
+     */
     @GetMapping("/all")
     public ResponseEntity<SuccessResponse<List<GetJournalEntryDto>>> getAllJournalEntries() {
         try {
@@ -34,6 +43,16 @@ public class JournalController {
         }
     }
 
+    /**
+     * Retrieves a list of journal entries based on the specified action.
+     *
+     * @param action The action parameter used to filter journal entries.
+     *               This parameter determines which journal entries to retrieve.
+     * @return A ResponseEntity containing a SuccessResponse with a list of 
+     *         GetJournalEntryDto objects if successful, or an error message 
+     *         if an exception occurs.
+     * @throws CustomApiException If an error occurs while retrieving journal entries.
+     */
     @GetMapping
     public ResponseEntity<SuccessResponse<List<GetJournalEntryDto>>> getJournalEntriesBasedOn(@RequestParam("action") String action) {
         try {
