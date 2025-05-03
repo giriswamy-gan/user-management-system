@@ -91,6 +91,8 @@ public class AuthController {
             return ApiResponseUtil.SuccessResponse(HttpStatus.UNAUTHORIZED, "Invalid username or password", req.getUsername());
         }
         String token = jwtUtil.generateToken((UserDetails) auth.getPrincipal());
+        Users saved = userRepo.findByUsername(req.getUsername()).orElseThrow(() -> new CustomApiException("User not found", HttpStatus.NOT_FOUND, "USER_NOT_FOUND"));
+        kafkaService.sendUserEvent(saved, "LOGIN", null);
         return ApiResponseUtil.SuccessResponse(HttpStatus.ACCEPTED, "Token generated", token);
     }
 }

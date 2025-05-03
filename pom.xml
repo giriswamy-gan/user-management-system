@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>event-models</module>
+<!--        <module>event-models</module>-->
         <module>user-service</module>
         <module>journal-service</module>
     </modules>
