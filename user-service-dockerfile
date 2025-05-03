@@ -1,0 +1,22 @@
+# ─────── Build stage ───────
+FROM maven:3.9-eclipse-temurin-21-alpine AS build
+WORKDIR /app
+
+# Copy entire multi‑module project
+COPY . .
+
+# Build everything (skipping tests)
+RUN mvn clean install -DskipTests
+
+# Package just the user‑service
+RUN mvn clean package -f user-service/pom.xml -DskipTests
+
+# ─────── Runtime stage ───────
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+
+# Copy the fat‑jar produced by the build stage
+COPY --from=build /app/user-service/target/*.jar app.jar
+
+EXPOSE 8081
+ENTRYPOINT ["java","-jar","app.jar"]

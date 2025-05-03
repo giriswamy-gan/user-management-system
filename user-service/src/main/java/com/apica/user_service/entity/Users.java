@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 @Getter
@@ -13,13 +16,19 @@ public class Users {
     @Id
     private String id;
 
+    @Column(unique = true)
     private String username;
+
     private String password;
     private String fullName;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "roles_id", nullable = false)
-    Roles roles;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "roles_id")
+    )
+    private Set<Roles> roles = new HashSet<>();
 
     public Users() {
         this.id = CustomIdGenerator.generateId(this.getClass().getSimpleName());
