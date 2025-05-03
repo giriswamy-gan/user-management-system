@@ -118,6 +118,8 @@ On successful login, you can access all the APIs. Copy the token generated in th
 
 Accessing any of the journal API needs ADMIN access.
 
+(Unit testing is done for all the main services)
+
 ### 3. Access the Services
 
 - **User Service**: [http://localhost:8081](http://localhost:8081)
