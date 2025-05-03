@@ -14,9 +14,6 @@ The **User Management System** is a microservices-based application designed to 
 - Health checks for all services.
 - Dockerized deployment for easy setup.
 
-## Project Structure
-. ├── docker-compose.yml # Orchestrates the services ├── user-service-dockerfile # Dockerfile for the User Service ├── journal-service-dockerfile # Dockerfile for the Journal Service ├── user-service/ # Source code for the User Service ├── journal-service/ # Source code for the Journal Service └── .vscode/ # VS Code workspace settings
-
 ## Prerequisites
 
 - Docker and Docker Compose installed on your system.
@@ -27,10 +24,8 @@ The **User Management System** is a microservices-based application designed to 
 
 ### 1. Clone the Repository
 
-### 1. Clone the Repository
-
 ```bash
-git clone <repository-url>
+git clone https://github.com/giriswamy-gan/user-management-system
 cd user-management-system
 ```
 
