@@ -29,7 +29,7 @@ This document provides an overview of all the APIs exposed.
             "id": "string",
             "action": "string",
             "timestamp": "string",
-            "details": "string"
+            "payload": "string"
           }
         ]
       }
@@ -39,9 +39,11 @@ This document provides an overview of all the APIs exposed.
     - **Body**:
       ```json
       {
-        "status": "error",
-        "message": "Error message",
-        "data": null
+      "status": "STATUS_CODE",
+      "data": {
+        "message": "Error Message",
+        "customCode": "CUSTOM_CODE"
+       }
       }
       ```
 
@@ -69,7 +71,7 @@ This document provides an overview of all the APIs exposed.
             "id": "string",
             "action": "string",
             "timestamp": "string",
-            "details": "string"
+            "payload": "string"
           }
         ]
       }
@@ -79,9 +81,11 @@ This document provides an overview of all the APIs exposed.
     - **Body**:
       ```json
       {
-        "status": "error",
-        "message": "Error message",
-        "data": null
+      "status": "STATUS_CODE",
+      "data": {
+        "message": "Error Message",
+        "customCode": "CUSTOM_CODE"
+       }
       }
       ```
 
@@ -93,9 +97,11 @@ This document provides an overview of all the APIs exposed.
   - **Body**:
     ```json
     {
-      "status": "error",
-      "message": "Error message",
-      "data": null
+      "status": "STATUS_CODE",
+      "data": {
+        "message": "Error Message",
+        "customCode": "CUSTOM_CODE"
+       }
     }
     ```
 
@@ -136,9 +142,11 @@ This document provides an overview of all the APIs exposed.
     - **Body**:
       ```json
       {
-        "status": "error",
-        "message": "Error message",
-        "data": null
+      "status": "STATUS_CODE",
+      "data": {
+        "message": "Error Message",
+        "customCode": "CUSTOM_CODE"
+       }
       }
       ```
 
@@ -174,9 +182,11 @@ This document provides an overview of all the APIs exposed.
     - **Body**:
       ```json
       {
-        "status": "error",
-        "message": "Error message",
-        "data": null
+      "status": "STATUS_CODE",
+      "data": {
+        "message": "Error Message",
+        "customCode": "CUSTOM_CODE"
+       }
       }
       ```
 
@@ -196,8 +206,9 @@ This document provides an overview of all the APIs exposed.
 `application/json  - **Example**:
     ```json
     {
+      "username": "Updated Username",
       "name": "Updated Name",
-      "email": "updated.email@example.com",
+      "password": "Updated Password",
       "roles": ["USER", "ADMIN"]
     }
     ```
@@ -217,9 +228,11 @@ This document provides an overview of all the APIs exposed.
     - **Body**:
       ```json
       {
-        "status": "error",
-        "message": "Error message",
-        "data": null
+      "status": "STATUS_CODE",
+      "data": {
+        "message": "Error Message",
+        "customCode": "CUSTOM_CODE"
+       }
       }
       ```
 
@@ -252,9 +265,11 @@ This document provides an overview of all the APIs exposed.
     - **Body**:
       ```json
       {
-        "status": "error",
-        "message": "Error message",
-        "data": null
+      "status": "STATUS_CODE",
+      "data": {
+        "message": "Error Message",
+        "customCode": "CUSTOM_CODE"
+       }
       }
       ```
 
@@ -266,9 +281,11 @@ This document provides an overview of all the APIs exposed.
   - **Body**:
     ```json
     {
-      "status": "error",
-      "message": "Error message",
-      "data": null
+      "status": "STATUS_CODE",
+      "data": {
+        "message": "Error Message",
+        "customCode": "CUSTOM_CODE"
+       }
     }
     ```
 
@@ -318,9 +335,11 @@ This document provides an overview of all the APIs exposed.
     - **Body**:
       ```json
       {
-        "status": "error",
-        "message": "Error message",
-        "data": null
+      "status": "STATUS_CODE",
+      "data": {
+        "message": "Error Message",
+        "customCode": "CUSTOM_CODE"
+       }
       }
       ```
 
@@ -343,7 +362,6 @@ This document provides an overview of all the APIs exposed.
           {
             "id": "string",
             "name": "string",
-            "description": "string"
           }
         ]
       }
@@ -353,9 +371,11 @@ This document provides an overview of all the APIs exposed.
     - **Body**:
       ```json
       {
-        "status": "error",
-        "message": "Error message",
-        "data": null
+      "status": "STATUS_CODE",
+      "data": {
+        "message": "Error Message",
+        "customCode": "CUSTOM_CODE"
+       }
       }
       ```
 
@@ -381,7 +401,6 @@ This document provides an overview of all the APIs exposed.
         "data": {
           "id": "string",
           "name": "string",
-          "description": "string"
         }
       }
       ```
@@ -390,9 +409,11 @@ This document provides an overview of all the APIs exposed.
     - **Body**:
       ```json
       {
-        "status": "error",
-        "message": "Error message",
-        "data": null
+      "status": "STATUS_CODE",
+      "data": {
+        "message": "Error Message",
+        "customCode": "CUSTOM_CODE"
+       }
       }
       ```
 
@@ -413,7 +434,6 @@ This document provides an overview of all the APIs exposed.
     ```json
     {
       "name": "UPDATED_ROLE",
-      "description": "Updated role description"
     }
     ```
 - **Authorization**:
@@ -434,9 +454,11 @@ This document provides an overview of all the APIs exposed.
     - **Body**:
       ```json
       {
-        "status": "error",
-        "message": "Error message",
-        "data": null
+      "status": "STATUS_CODE",
+      "data": {
+        "message": "Error Message",
+        "customCode": "CUSTOM_CODE"
+       }
       }
       ```
 
@@ -448,9 +470,11 @@ This document provides an overview of all the APIs exposed.
   - **Body**:
     ```json
     {
-      "status": "error",
-      "message": "Error message",
-      "data": null
+      "status": "STATUS_CODE",
+      "data": {
+        "message": "Error Message",
+        "customCode": "CUSTOM_CODE"
+       }
     }
     ```
 
@@ -486,10 +510,12 @@ This document provides an overview of all the APIs exposed.
     - **Body**:
       ```json
       {
-        "status": "success",
-        "message": "User registered",
-        "data": "John Doe"
-      }
+        "status": "200",
+        "data": {
+          "message": "User registered",
+          "customCode": ""
+         }
+        }
       ```
   - **Error**:
     - **Status Code**: 409 CONFLICT
@@ -535,10 +561,12 @@ This document provides an overview of all the APIs exposed.
     - **Body**:
       ```json
       {
-        "status": "success",
-        "message": "Token generated",
-        "data": "jwt_token_here"
-      }
+        "status": "200",
+        "data": {
+          "message": "jwt_token_here",
+          "customCode": ""
+         }
+        }
       ```
   - **Error**:
     - **Status Code**: 401 UNAUTHORIZED
@@ -550,15 +578,24 @@ This document provides an overview of all the APIs exposed.
           "message": "Invalid username or password",
           "data": "john_doe"
         }
+        {
+        "status": "401",
+        "data": {
+          "message": "Invalid username or password",
+          "customCode": "INVALID_USERNAME_PASSWORD"
+         }
+        }
         ```
     - **Status Code**: 404 NOT_FOUND
       - **Reason**: User not found.
       - **Body**:
         ```json
         {
-          "status": "error",
+        "status": "404",
+        "data": {
           "message": "User not found",
-          "data": "USER_NOT_FOUND"
+          "customCode": "USER_NOT_FOUND"
+         }
         }
         ```
 
