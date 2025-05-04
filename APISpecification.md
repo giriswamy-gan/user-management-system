@@ -16,6 +16,8 @@ This document provides an overview of all the APIs exposed.
 - **Endpoint**: `/all`
 - **Method**: `GET`
 - **Description**: Retrieves all journal entries.
+- **Authorization**:
+  - Requires the `ADMIN` role.
 - **Response**:
   - **Success**:
     - **Status Code**: `200 OK`
@@ -32,6 +34,18 @@ This document provides an overview of all the APIs exposed.
             "payload": "string"
           }
         ]
+      }
+      ```
+  - **Error**:
+    - **Status Code**: `401 UNAUTHORIZED`
+    - **Body**:
+      ```json
+      {
+        "path": "/journal/all",
+        "error": "Forbidden",
+        "message": "Access denied: You don't have permission to access this resource",
+        "timestamp": "2025-05-04T17:10:26.592883755",
+        "status": 401
       }
       ```
   - **Error**:
@@ -54,10 +68,12 @@ This document provides an overview of all the APIs exposed.
 - **Endpoint**: `/`
 - **Method**: `GET`
 - **Description**: Retrieves a list of journal entries filtered by the specified action.
+- **Authorization**:
+  - Requires the `ADMIN` role.
 - **Query Parameters**:
   - action (required): The action parameter used to filter journal entries.
     - **Type**: `string`
-    - **Example**: `CREATE_USER`
+    - **Example**: `CREATED`
 - **Response**:
   - **Success**:
     - **Status Code**: 200 OK
@@ -74,6 +90,18 @@ This document provides an overview of all the APIs exposed.
             "payload": "string"
           }
         ]
+      }
+      ```
+  - **Error**:
+    - **Status Code**: `401 UNAUTHORIZED`
+    - **Body**:
+      ```json
+      {
+        "path": "/journal/all",
+        "error": "Forbidden",
+        "message": "Access denied: You don't have permission to access this resource",
+        "timestamp": "2025-05-04T17:10:26.592883755",
+        "status": 401
       }
       ```
   - **Error**:
@@ -138,6 +166,18 @@ This document provides an overview of all the APIs exposed.
       }
       ```
   - **Error**:
+    - **Status Code**: `401 UNAUTHORIZED`
+    - **Body**:
+      ```json
+      {
+        "status": 401,
+        "data": {
+            "message": "Invalid Token",
+            "customCode": "INVALID_TOKEN"
+        }
+      }
+      ```
+  - **Error**:
     - **Status Code**: `500 INTERNAL_SERVER_ERROR`
     - **Body**:
       ```json
@@ -174,6 +214,30 @@ This document provides an overview of all the APIs exposed.
           "name": "string",
           "email": "string",
           "roles": ["string"]
+        }
+      }
+      ```
+  - **Error**:
+    - **Status Code**: `400 BAD_REQUEST`
+    - **Body**:
+      ```json
+      {
+        "status": 400,
+        "data": {
+            "message": "User not found",
+            "customCode": "USER_NOT_FOUND"
+        }
+      }
+      ```
+  - **Error**:
+    - **Status Code**: `401 UNAUTHORIZED`
+    - **Body**:
+      ```json
+      {
+        "status": 401,
+        "data": {
+            "message": "Invalid Token",
+            "customCode": "INVALID_TOKEN"
         }
       }
       ```
@@ -224,6 +288,30 @@ This document provides an overview of all the APIs exposed.
       }
       ```
   - **Error**:
+    - **Status Code**: `400 BAD_REQUEST`
+    - **Body**:
+      ```json
+      {
+        "status": 400,
+        "data": {
+            "message": "User not found",
+            "customCode": "USER_NOT_FOUND"
+        }
+      }
+      ```
+  - **Error**:
+    - **Status Code**: `401 UNAUTHORIZED`
+    - **Body**:
+      ```json
+      {
+        "status": 401,
+        "data": {
+            "message": "Invalid Token",
+            "customCode": "INVALID_TOKEN"
+        }
+      }
+      ```
+  - **Error**:
     - **Status Code**: `500 INTERNAL_SERVER_ERROR`
     - **Body**:
       ```json
@@ -258,6 +346,30 @@ This document provides an overview of all the APIs exposed.
         "status": "success",
         "message": "Successfully deleted user",
         "data": "12345"
+      }
+      ```
+  - **Error**:
+    - **Status Code**: `400 BAD_REQUEST`
+    - **Body**:
+      ```json
+      {
+        "status": 400,
+        "data": {
+            "message": "User not found",
+            "customCode": "USER_NOT_FOUND"
+        }
+      }
+      ```
+  - **Error**:
+    - **Status Code**: `401 UNAUTHORIZED`
+    - **Body**:
+      ```json
+      {
+        "status": 401,
+        "data": {
+            "message": "Invalid Token",
+            "customCode": "INVALID_TOKEN"
+        }
       }
       ```
   - **Error**:
@@ -333,11 +445,35 @@ This document provides an overview of all the APIs exposed.
       }
       ```
   - **Error**:
+    - **Status Code**: `400 BAD_REQUEST`
+    - **Body**:
+      ```json
+      {
+        "status": 400,
+        "data": {
+            "message": "Role name already exists",
+            "customCode": "ROLE_NAME_EXISTS"
+        }
+      }
+      ```
+  - **Error**:
+    - **Status Code**: `401 UNAUTHORIZED`
+    - **Body**:
+      ```json
+      {
+        "status": 401,
+        "data": {
+            "message": "Invalid Token",
+            "customCode": "INVALID_TOKEN"
+        }
+      }
+      ```
+  - **Error**:
     - **Status Code**: `500 INTERNAL_SERVER_ERROR`
     - **Body**:
       ```json
       {
-      "status": "STATUS_CODE",
+      "status": "500",
       "data": {
         "message": "Error Message",
         "customCode": "CUSTOM_CODE"
@@ -376,11 +512,23 @@ This document provides an overview of all the APIs exposed.
       }
       ```
   - **Error**:
+    - **Status Code**: `401 UNAUTHORIZED`
+    - **Body**:
+      ```json
+      {
+        "status": 401,
+        "data": {
+            "message": "Invalid Token",
+            "customCode": "INVALID_TOKEN"
+        }
+      }
+      ```
+  - **Error**:
     - **Status Code**: `500 INTERNAL_SERVER_ERROR`
     - **Body**:
       ```json
       {
-      "status": "STATUS_CODE",
+      "status": "500",
       "data": {
         "message": "Error Message",
         "customCode": "CUSTOM_CODE"
@@ -410,6 +558,18 @@ This document provides an overview of all the APIs exposed.
         "data": {
           "id": "string",
           "name": "string",
+        }
+      }
+      ```
+  - **Error**:
+    - **Status Code**: `401 UNAUTHORIZED`
+    - **Body**:
+      ```json
+      {
+        "status": 401,
+        "data": {
+            "message": "Invalid Token",
+            "customCode": "INVALID_TOKEN"
         }
       }
       ```
@@ -459,6 +619,30 @@ This document provides an overview of all the APIs exposed.
       }
       ```
   - **Error**:
+    - **Status Code**: `401 UNAUTHORIZED`
+    - **Body**:
+      ```json
+      {
+        "status": 400,
+        "data": {
+            "message": "Role not found: ROLE_US",
+            "customCode": "ROLE_NOT_FOUND"
+        }
+      }
+      ```
+  - **Error**:
+    - **Status Code**: `401 UNAUTHORIZED`
+    - **Body**:
+      ```json
+      {
+        "status": 401,
+        "data": {
+            "message": "Invalid Token",
+            "customCode": "INVALID_TOKEN"
+        }
+      }
+      ```
+  - **Error**:
     - **Status Code**: `500 INTERNAL_SERVER_ERROR`
     - **Body**:
       ```json
@@ -479,7 +663,7 @@ This document provides an overview of all the APIs exposed.
   - **Body**:
     ```json
     {
-      "status": "STATUS_CODE",
+      "status": "500",
       "data": {
         "message": "Error Message",
         "customCode": "CUSTOM_CODE"
@@ -522,7 +706,7 @@ This document provides an overview of all the APIs exposed.
         "status": 201,
         "data": {
             "message": "User registered",
-            "data": "john_doe",
+            "data": "John Doe",
             "customCode": ""
         }
       }
@@ -533,9 +717,11 @@ This document provides an overview of all the APIs exposed.
       - **Body**:
         ```json
         {
-          "status": "error",
-          "message": "Username already taken",
-          "data": "USERNAME_TAKEN"
+          "status": 409,
+          "data": {
+              "message": "Username already taken",
+              "customCode": "USERNAME_TAKEN"
+          }
         }
         ```
     - **Status Code**: 400 BAD_REQUEST
@@ -543,9 +729,11 @@ This document provides an overview of all the APIs exposed.
       - **Body**:
         ```json
         {
-          "status": "error",
-          "message": "Role not found: ROLE_NAME",
-          "data": "ROLE_NOT_FOUND"
+          "status": 400,
+          "data": {
+              "message": "Role not found: ROLE_USER",
+              "customCode": "ROLE_NOT_FOUND"
+          }
         }
         ```
 
@@ -585,28 +773,12 @@ This document provides an overview of all the APIs exposed.
       - **Body**:
         ```json
         {
-          "status": "error",
-          "message": "Invalid username or password",
-          "data": "john_doe"
-        }
-        {
-        "status": "401",
-        "data": {
-          "message": "Invalid username or password",
-          "customCode": "INVALID_USERNAME_PASSWORD"
-         }
-        }
-        ```
-    - **Status Code**: 404 NOT_FOUND
-      - **Reason**: User not found.
-      - **Body**:
-        ```json
-        {
-        "status": "404",
-        "data": {
-          "message": "User not found",
-          "customCode": "USER_NOT_FOUND"
-         }
+          "status": 401,
+          "data": {
+              "message": "Invalid username or password",
+              "data": "HII",
+              "customCode": ""
+          }
         }
         ```
 
@@ -616,7 +788,6 @@ This document provides an overview of all the APIs exposed.
 
 - **400 BAD_REQUEST**: Returned when a role specified in the registration request does not exist.
 - **401 UNAUTHORIZED**: Returned when login credentials are invalid.
-- **404 NOT_FOUND**: Returned when a user is not found in the database.
 - **409 CONFLICT**: Returned when the username is already taken during registration.
 - **500 INTERNAL_SERVER_ERROR**: Returned when an unexpected error occurs.
 

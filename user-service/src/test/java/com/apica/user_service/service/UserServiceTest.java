@@ -1,5 +1,6 @@
 package com.apica.user_service.service;
 
+import com.apica.user_service.entity.Roles;
 import com.apica.user_service.entity.Users;
 import com.apica.user_service.utils.CustomApiException;
 import com.apica.user_service.repository.UserRepository;
@@ -16,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(org.mockito.junit.jupiter.MockitoExtension.class)
@@ -85,29 +86,75 @@ class UserServiceTest {
     }
 
     @Test
-    void updateUser_existing_savesAndPublishes() {
-        when(userRepository.findById("user-1")).thenReturn(Optional.of(existingUser));
-        when(pwEncoder.encode("newPassword")).thenReturn("newPassHash");
+    void updateUser_Success() {
+        // Arrange
+        String userId = "123";
+        UserRequestDto userRequestDto = new UserRequestDto();
+        userRequestDto.setFullName("Updated Name");
+        userRequestDto.setUsername("updated_username");
+        userRequestDto.setPassword("new_password");
+        userRequestDto.setRoleName(List.of("ROLE_USER"));
 
-        userService.updateUser("user-1", updateDto);
+        Users existingUser = new Users();
+        existingUser.setId(userId);
+        existingUser.setUsername("old_username");
+        existingUser.setFullName("Old Name");
 
-        // verify the user fields were updated
-        assertThat(existingUser.getUsername()).isEqualTo("newName");
-        assertThat(existingUser.getFullName()).isEqualTo("New Full");
-        assertThat(existingUser.getPassword()).isEqualTo("newPassHash");
+        Roles role = new Roles();
+        role.setName("ROLE_USER");
 
-        // verify save and kafka publish
-        verify(userRepository).save(existingUser);
-        verify(kafkaService).sendUserEvent(existingUser, "UPDATED", updateDto);
+        when(userRepository.findById(userId)).thenReturn(Optional.of(existingUser));
+        when(rolesRepository.findByName("ROLE_USER")).thenReturn(Optional.of(role));
+        when(pwEncoder.encode("new_password")).thenReturn("encoded_password");
+
+        // Act
+        userService.updateUser(userId, userRequestDto);
+
+        // Assert
+        verify(userRepository, times(1)).save(existingUser);
+        verify(kafkaService, times(1)).sendUserEvent(existingUser, "UPDATED", userRequestDto);
+        assertEquals("Updated Name", existingUser.getFullName());
+        assertEquals("updated_username", existingUser.getUsername());
+        assertEquals("encoded_password", existingUser.getPassword());
+        assertTrue(existingUser.getRoles().contains(role));
     }
 
     @Test
-    void updateUser_notFound_throws() {
-        when(userRepository.findById("user-99")).thenReturn(Optional.empty());
+    void updateUser_UserNotFound() {
+        // Arrange
+        String userId = "123";
+        UserRequestDto userRequestDto = new UserRequestDto();
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
-        assertThrows(CustomApiException.class, () -> userService.updateUser("user-99", updateDto));
-        verify(userRepository).findById("user-99");
-        verifyNoMoreInteractions(userRepository, kafkaService);
+        // Act & Assert
+        CustomApiException exception = assertThrows(CustomApiException.class, () -> userService.updateUser(userId, userRequestDto));
+        assertEquals("User not found", exception.getMessage());
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+        assertEquals("USER_NOT_FOUND", exception.getCustomCode());
+        verify(userRepository, never()).save(any());
+        verify(kafkaService, never()).sendUserEvent(any(), anyString(), any());
+    }
+
+    @Test
+    void updateUser_RoleNotFound() {
+        // Arrange
+        String userId = "123";
+        UserRequestDto userRequestDto = new UserRequestDto();
+        userRequestDto.setRoleName(List.of("ROLE_INVALID"));
+
+        Users existingUser = new Users();
+        existingUser.setId(userId);
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(existingUser));
+        when(rolesRepository.findByName("ROLE_INVALID")).thenReturn(Optional.empty());
+
+        // Act & Assert
+        CustomApiException exception = assertThrows(CustomApiException.class, () -> userService.updateUser(userId, userRequestDto));
+        assertEquals("Role not found: ROLE_INVALID", exception.getMessage());
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+        assertEquals("ROLE_NOT_FOUND", exception.getCustomCode());
+        verify(userRepository, never()).save(any());
+        verify(kafkaService, never()).sendUserEvent(any(), anyString(), any());
     }
 
     @Test
