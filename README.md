@@ -26,8 +26,6 @@ The **User Management System** is a microservices-based application designed to 
 ## Prerequisites
 
 - Docker and Docker Compose installed on your system.
-- Java 17+ installed for local development.
-- Maven installed for building the services locally.
 
 ## Event Flow
 
